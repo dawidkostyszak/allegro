@@ -9,7 +9,7 @@ setup(
     author='Dawid Kostyszak',
     author_email='dawid.kostyszak@stxnext.pl',
     url='http://stxnext.pl',
-    packages=['allegro'],
+    packages=['lib'],
     install_requires = [
         'mechanize',
         'beautifulsoup4',
@@ -17,6 +17,6 @@ setup(
     ],
     entry_points={
           'console_scripts': [
-              'allegro = allegro.scripts:parser']
+              'allegro = lib.scripts:parser']
               }
 )
