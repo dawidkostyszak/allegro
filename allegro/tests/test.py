@@ -1,6 +1,6 @@
 import mock
 import unittest
-from lib.allegro_module import *
+from allegro.lib import *
 
 
 class SerwerTestCase(unittest.TestCase):

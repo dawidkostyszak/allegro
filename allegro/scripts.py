@@ -1,6 +1,6 @@
 import sys
 import argparse
-from allegro_module import allegro_api
+from lib import allegro_api
 
 
 def parser():
