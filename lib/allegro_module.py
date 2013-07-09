@@ -38,17 +38,17 @@ def allegro_api(product):
     if proposed_product is None:
         raise AllegroError("No product")
 
-    price_of_proposed_product = proposed_product.find(
+    price = proposed_product.find(
         'span',
         {'class': 'buy-now dist'}
     )
 
-    price = price_of_proposed_product.text[11:-3]
+    price = price.text[11:-3]
 
-    price_float = float(price.replace(',', '.').replace(' ', ''))
+    price = float(price.replace(',', '.').replace(' ', ''))
 
-    url_of_proposed_product = proposed_product.find('a')['href']
+    url_path = proposed_product.find('a')['href']
 
-    full_url = ''.join(["www.allegro.pl", url_of_proposed_product])
+    full_url = ''.join(["www.allegro.pl", url_path])
 
-    return price_float, full_url
+    return price, full_url
