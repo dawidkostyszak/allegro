@@ -49,6 +49,6 @@ def allegro_api(product):
 
     url_path = proposed_product.find('a')['href']
 
-    full_url = ''.join(["www.allegro.pl", url_path])
+    full_url = ''.join(["http://www.allegro.pl", url_path])
 
     return price, full_url
