@@ -15,16 +15,16 @@ class SerwerTestCase(unittest.TestCase):
         browse = Browser()
         browse.response().read.return_value = data
 
-        price, url = allegro_api('laptop')
+        data = allegro_api('laptop')
 
         self.assertEqual(
-            price,
+            data['price'],
             138.00
         )
 
         self.assertEqual(
-            url,
-            'www.allegro.pl/drukarka-do-laptopa-hp-460-cb-przebieg-5000str-i3348727701.html'
+            data['url'],
+            'http://www.allegro.pl/drukarka-do-laptopa-hp-460-cb-przebieg-5000str-i3348727701.html'
         )
 
     @mock.patch('mechanize.Browser')
