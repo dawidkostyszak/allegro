@@ -1,3 +1,4 @@
+import re
 import mechanize
 from bs4 import BeautifulSoup
 
@@ -10,7 +11,7 @@ class AllegroError(Exception):
         return self.value
 
 
-def allegro_api(product):
+def allegro_api(product, external_data={}):
     try:
         browse = mechanize.Browser()
         url = "http://www.allegro.pl/"
@@ -23,11 +24,8 @@ def allegro_api(product):
     browse.submit()
 
     browse.select_form(nr=1)
-    browse.form['offerTypeBuyNow'] = ['1']
-    browse.form['standard_allegro'] = ['1']
-    browse.form['startingTime'] = ['']
-    browse.form['endingTime'] = ['']
-
+    for label, value in external_data.items():
+        browse.form[str(label)] = [str(value)]
     browse.submit()
 
     allegro_html = browse.response().read()
@@ -42,13 +40,19 @@ def allegro_api(product):
         'span',
         {'class': 'buy-now dist'}
     )
-
     price = price.text[11:-3]
-
     price = float(price.replace(',', '.').replace(' ', ''))
 
-    url_path = proposed_product.find('a')['href']
+    img_div = proposed_product.find('div', {'class': 'photo'})
+    img_urls = img_div.get('data-img')
+    regex = re.compile('\[.*,"(.*)"\]')
+    img = regex.findall(img_urls)[0]
 
+    url_path = proposed_product.find('a')['href']
     full_url = ''.join(["http://www.allegro.pl", url_path])
 
-    return price, full_url
+    return {
+        'price': price,
+        'url': full_url,
+        'img': img,
+    }
