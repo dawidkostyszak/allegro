@@ -24,8 +24,14 @@ def allegro_api(product, external_data={}):
     browse.submit()
 
     browse.select_form(nr=1)
-    for label, value in external_data.items():
-        browse.form[str(label)] = [str(value)]
+    if external_data:
+        for label, value in external_data.items():
+            browse.form[str(label)] = [str(value)]
+    else:
+        browse.form['offerTypeBuyNow'] = ['1']
+        browse.form['standard_allegro'] = ['1']
+        browse.form['startingTime'] = ['']
+        browse.form['endingTime'] = ['']
     browse.submit()
 
     allegro_html = browse.response().read()
