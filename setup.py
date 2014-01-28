@@ -4,7 +4,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='allegro',
-    version='0.2',
+    version='0.1',
     description='Coroutine-based networking library',
     author='Dawid Kostyszak',
     author_email='dawid.kostyszak@stxnext.pl',
